@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Repartidores - Enlatados MG</title>
+    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+<div id="wrapper">
+
+    <!-- Menú lateral -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/index">
+            <div class="sidebar-brand-text mx-3">Enlatados MG</div>
+        </a>
+        <hr class="sidebar-divider my-0">
+        <li class="nav-item">
+            <a class="nav-link" href="/index">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Inicio</span>
+            </a>
+        </li>
+        <hr class="sidebar-divider">
+        <div class="sidebar-heading">Gestión</div>
+        <li class="nav-item">
+            <a class="nav-link" href="/clientes">
+                <i class="fas fa-fw fa-users"></i>
+                <span>Clientes</span>
+            </a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="/repartidores">
+                <i class="fas fa-fw fa-truck"></i>
+                <span>Repartidores</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/vehiculos">
+                <i class="fas fa-fw fa-car"></i>
+                <span>Vehículos</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/almacen">
+                <i class="fas fa-fw fa-box"></i>
+                <span>Almacén</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/pedidos">
+                <i class="fas fa-fw fa-clipboard-list"></i>
+                <span>Pedidos</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/carga">
+                <i class="fas fa-fw fa-file-csv"></i>
+                <span>Carga CSV</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/reportes">
+                <i class="fas fa-fw fa-chart-bar"></i>
+                <span>Reportes</span>
+            </a>
+        </li>
+        <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" href="/">
+                <i class="fas fa-fw fa-sign-out-alt"></i>
+                <span>Cerrar Sesión</span>
+            </a>
+        </li>
+    </ul>
+
+    <!-- Contenido principal -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <h4 class="ml-3 font-weight-bold text-primary mb-0">
+                    <i class="fas fa-truck mr-2"></i>Gestión de Repartidores
+                </h4>
+            </nav>
+
+            <div class="container-fluid">
+
+                <!-- Formulario crear -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            Agregar nuevo repartidor
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/repartidores/crear}" method="post">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>CUI</label>
+                                        <input type="text" class="form-control"
+                                               name="cui" placeholder="CUI">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Nombre</label>
+                                        <input type="text" class="form-control"
+                                               name="nombre" placeholder="Nombre">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Apellidos</label>
+                                        <input type="text" class="form-control"
+                                               name="apellidos" placeholder="Apellidos">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Licencia</label>
+                                        <select class="form-control" name="licencia">
+                                            <option value="A">Tipo A</option>
+                                            <option value="B">Tipo B</option>
+                                            <option value="C">Tipo C</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Teléfono</label>
+                                        <input type="text" class="form-control"
+                                               name="telefono" placeholder="Teléfono">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Agregar Repartidor
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Tabla repartidores -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            Cola de Repartidores (FIFO)
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>CUI</th>
+                                    <th>Nombre</th>
+                                    <th>Apellidos</th>
+                                    <th>Licencia</th>
+                                    <th>Teléfono</th>
+                                    <th>Acciones</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="r : ${repartidores}">
+                                    <td th:text="${r.cui}"></td>
+                                    <td th:text="${r.nombre}"></td>
+                                    <td th:text="${r.apellidos}"></td>
+                                    <td th:text="${r.licencia}"></td>
+                                    <td th:text="${r.telefono}"></td>
+                                    <td>
+                                        <a th:href="@{/repartidores/eliminar/{cui}(cui=${r.cui})}"
+                                           class="btn btn-danger btn-sm"
+                                           onclick="return confirm('¿Eliminar repartidor?')">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                        <button class="btn btn-warning btn-sm"
+                                                th:attr="data-cui=${r.cui},
+                                                             data-nombre=${r.nombre},
+                                                             data-apellidos=${r.apellidos},
+                                                             data-licencia=${r.licencia},
+                                                             data-telefono=${r.telefono}"
+                                                onclick="llenarFormulario(this)">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario modificar -->
+                <div class="card shadow mb-4" id="formModificar" style="display:none;">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-warning">
+                            Modificar repartidor
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/repartidores/modificar}" method="post">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>CUI</label>
+                                        <input type="text" class="form-control"
+                                               name="cui" id="modCui" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Nombre</label>
+                                        <input type="text" class="form-control"
+                                               name="nombre" id="modNombre">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Apellidos</label>
+                                        <input type="text" class="form-control"
+                                               name="apellidos" id="modApellidos">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Licencia</label>
+                                        <select class="form-control" name="licencia" id="modLicencia">
+                                            <option value="A">Tipo A</option>
+                                            <option value="B">Tipo B</option>
+                                            <option value="C">Tipo C</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Teléfono</label>
+                                        <input type="text" class="form-control"
+                                               name="telefono" id="modTelefono">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fas fa-save"></i> Guardar cambios
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/js/sb-admin-2.min.js"></script>
+<script>
+    function llenarFormulario(btn) {
+        document.getElementById('modCui').value = btn.getAttribute('data-cui');
+        document.getElementById('modNombre').value = btn.getAttribute('data-nombre');
+        document.getElementById('modApellidos').value = btn.getAttribute('data-apellidos');
+        document.getElementById('modLicencia').value = btn.getAttribute('data-licencia');
+        document.getElementById('modTelefono').value = btn.getAttribute('data-telefono');
+        document.getElementById('formModificar').style.display = 'block';
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+</script>
+</body>
+</html>

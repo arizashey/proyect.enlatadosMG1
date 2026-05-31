@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Almacén - Enlatados MG</title>
+    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+<div id="wrapper">
+
+    <!-- Menú lateral -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/index">
+            <div class="sidebar-brand-text mx-3">Enlatados MG</div>
+        </a>
+        <hr class="sidebar-divider my-0">
+        <li class="nav-item">
+            <a class="nav-link" href="/index">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Inicio</span>
+            </a>
+        </li>
+        <hr class="sidebar-divider">
+        <div class="sidebar-heading">Gestión</div>
+        <li class="nav-item">
+            <a class="nav-link" href="/clientes">
+                <i class="fas fa-fw fa-users"></i>
+                <span>Clientes</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/repartidores">
+                <i class="fas fa-fw fa-truck"></i>
+                <span>Repartidores</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/vehiculos">
+                <i class="fas fa-fw fa-car"></i>
+                <span>Vehículos</span>
+            </a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="/almacen">
+                <i class="fas fa-fw fa-box"></i>
+                <span>Almacén</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/pedidos">
+                <i class="fas fa-fw fa-clipboard-list"></i>
+                <span>Pedidos</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/carga">
+                <i class="fas fa-fw fa-file-csv"></i>
+                <span>Carga CSV</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/reportes">
+                <i class="fas fa-fw fa-chart-bar"></i>
+                <span>Reportes</span>
+            </a>
+        </li>
+        <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" href="/">
+                <i class="fas fa-fw fa-sign-out-alt"></i>
+                <span>Cerrar Sesión</span>
+            </a>
+        </li>
+    </ul>
+
+    <!-- Contenido principal -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <h4 class="ml-3 font-weight-bold text-primary mb-0">
+                    <i class="fas fa-box mr-2"></i>Gestión de Almacén
+                </h4>
+            </nav>
+
+            <div class="container-fluid">
+
+                <!-- Card total de cajas -->
+                <div class="row mb-4">
+                    <div class="col-xl-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            Total de cajas en almacén
+                                        </div>
+                                        <div class="h2 mb-0 font-weight-bold text-gray-800"
+                                             th:text="${total}">0</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-box fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario inicializar -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            Inicializar Almacén
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/almacen/inicializar}" method="post">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Cantidad de cajas</label>
+                                        <input type="number" class="form-control"
+                                               name="cantidad" placeholder="Ej: 50">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Fecha de ingreso</label>
+                                        <input type="date" class="form-control"
+                                               name="fecha">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-boxes"></i> Crear cajas
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Formulario agregar una caja -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-success">
+                            Agregar una caja
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/almacen/agregar}" method="post">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Fecha de ingreso</label>
+                                        <input type="date" class="form-control"
+                                               name="fecha">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-plus"></i> Agregar caja
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Tabla de cajas -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            Cajas en la Pila (LIFO)
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>Correlativo</th>
+                                    <th>Fecha de Ingreso</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="c : ${cajas}">
+                                    <td th:text="${c.correlativo}"></td>
+                                    <td th:text="${c.fechaIngreso}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/js/sb-admin-2.min.js"></script>
+</body>
+</html>

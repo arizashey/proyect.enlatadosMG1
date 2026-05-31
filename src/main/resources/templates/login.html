@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Enlatados MG - Login</title>
+    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+    <style>
+        .login-card {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .login-titulo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #6f42c1;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .login-subtitulo {
+            font-size: 13px;
+            color: #aaa;
+            margin-bottom: 25px;
+        }
+        .btn-login {
+            background: linear-gradient(135deg, #6f42c1, #4a2d8a);
+            border: none;
+            border-radius: 25px;
+            padding: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: white;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        .btn-login:hover {
+            background: linear-gradient(135deg, #4a2d8a, #6f42c1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(111,66,193,0.4);
+            color: white;
+        }
+        .btn-registro {
+            background: linear-gradient(135deg, #1cc88a, #17a673);
+            border: none;
+            border-radius: 25px;
+            padding: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: white;
+            width: 100%;
+            transition: all 0.3s;
+        }
+        .btn-registro:hover {
+            background: linear-gradient(135deg, #17a673, #1cc88a);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(28,200,138,0.4);
+            color: white;
+        }
+        .form-control {
+            border-radius: 10px;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+        }
+        .form-control:focus {
+            border-color: #6f42c1;
+            box-shadow: 0 0 0 0.2rem rgba(111,66,193,0.2);
+        }
+        .icono-titulo {
+            font-size: 50px;
+            color: #6f42c1;
+            margin-bottom: 10px;
+        }
+        .divider-text {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+        .divider-text hr {
+            flex: 1;
+            border-color: #e0e0e0;
+        }
+        .divider-text span {
+            padding: 0 10px;
+            color: #aaa;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-primary">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-xl-5 col-lg-6 col-md-8">
+            <div class="card login-card border-0 my-5">
+                <div class="card-body p-5">
+
+                    <!-- Título con icono -->
+                    <div class="text-center mb-4">
+                        <div class="icono-titulo">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <h1 class="login-titulo">Enlatados MG</h1>
+                        <p class="login-subtitulo">Sistema de Distribución</p>
+                    </div>
+
+                    <!-- Formulario login -->
+                    <form th:action="@{/usuarios/login}" method="post">
+
+                        <div class="form-group">
+                            <label class="font-weight-bold text-gray-700">
+                                <i class="fas fa-id-badge mr-1"></i> ID de Usuario
+                            </label>
+                            <input type="number" class="form-control"
+                                   name="id" placeholder="Ingresa tu ID">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="font-weight-bold text-gray-700">
+                                <i class="fas fa-lock mr-1"></i> Contraseña
+                            </label>
+                            <input type="password" class="form-control"
+                                   name="contrasena" placeholder="Ingresa tu contraseña">
+                        </div>
+
+                        <div th:if="${error}" class="alert alert-danger rounded-pill text-center">
+                            <i class="fas fa-exclamation-circle mr-1"></i>
+                            <span th:text="${error}"></span>
+                        </div>
+
+                        <button type="submit" class="btn-login mt-2">
+                            <i class="fas fa-sign-in-alt mr-2"></i> Iniciar Sesión
+                        </button>
+
+                    </form>
+
+                    <!-- Divisor -->
+                    <div class="divider-text mt-4">
+                        <hr><span>¿No tienes cuenta?</span><hr>
+                    </div>
+
+                    <!-- Botón registro -->
+                    <a href="/registro" class="btn-registro d-block text-center text-decoration-none">
+                        <i class="fas fa-user-plus mr-2"></i> Crear cuenta
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/js/sb-admin-2.min.js"></script>
+</body>
+</html>

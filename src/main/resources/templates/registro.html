@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Enlatados MG - Registro</title>
+    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+</head>
+
+<body class="bg-gradient-primary">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-xl-6 col-lg-6 col-md-8">
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <div class="p-5">
+
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">Crear cuenta</h1>
+                        </div>
+
+                        <div th:if="${exito}" class="alert alert-success">
+                            <span th:text="${exito}"></span>
+                        </div>
+
+                        <div th:if="${error}" class="alert alert-danger">
+                            <span th:text="${error}"></span>
+                        </div>
+
+                        <form th:action="@{/registro}" method="post">
+                            <div class="form-group">
+                                <label>ID de Usuario</label>
+                                <input type="number" class="form-control"
+                                       name="id" placeholder="Ej: 12345">
+                            </div>
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <input type="text" class="form-control"
+                                       name="nombre" placeholder="Nombre">
+                            </div>
+                            <div class="form-group">
+                                <label>Apellidos</label>
+                                <input type="text" class="form-control"
+                                       name="apellidos" placeholder="Apellidos">
+                            </div>
+                            <div class="form-group">
+                                <label>Contraseña</label>
+                                <input type="password" class="form-control"
+                                       name="contrasena" placeholder="Contraseña">
+                            </div>
+
+                            <button type="submit" class="btn btn-success btn-block">
+                                <i class="fas fa-user-plus"></i> Registrarse
+                            </button>
+                        </form>
+
+                        <hr>
+
+                        <div class="text-center">
+                            <a href="/" class="btn btn-secondary btn-block">
+                                <i class="fas fa-arrow-left"></i> Regresar al login
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/js/sb-admin-2.min.js"></script>
+</body>
+</html>

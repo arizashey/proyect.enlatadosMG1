@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehículos - Enlatados MG</title>
+    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+<div id="wrapper">
+
+    <!-- Menú lateral -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/index">
+            <div class="sidebar-brand-text mx-3">Enlatados MG</div>
+        </a>
+        <hr class="sidebar-divider my-0">
+        <li class="nav-item">
+            <a class="nav-link" href="/index">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Inicio</span>
+            </a>
+        </li>
+        <hr class="sidebar-divider">
+        <div class="sidebar-heading">Gestión</div>
+        <li class="nav-item">
+            <a class="nav-link" href="/clientes">
+                <i class="fas fa-fw fa-users"></i>
+                <span>Clientes</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/repartidores">
+                <i class="fas fa-fw fa-truck"></i>
+                <span>Repartidores</span>
+            </a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="/vehiculos">
+                <i class="fas fa-fw fa-car"></i>
+                <span>Vehículos</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/almacen">
+                <i class="fas fa-fw fa-box"></i>
+                <span>Almacén</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/pedidos">
+                <i class="fas fa-fw fa-clipboard-list"></i>
+                <span>Pedidos</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/carga">
+                <i class="fas fa-fw fa-file-csv"></i>
+                <span>Carga CSV</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/reportes">
+                <i class="fas fa-fw fa-chart-bar"></i>
+                <span>Reportes</span>
+            </a>
+        </li>
+        <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" href="/">
+                <i class="fas fa-fw fa-sign-out-alt"></i>
+                <span>Cerrar Sesión</span>
+            </a>
+        </li>
+    </ul>
+
+    <!-- Contenido principal -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <h4 class="ml-3 font-weight-bold text-primary mb-0">
+                    <i class="fas fa-car mr-2"></i>Gestión de Vehículos
+                </h4>
+            </nav>
+
+            <div class="container-fluid">
+
+                <!-- Formulario crear -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            Agregar nuevo vehículo
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/vehiculos/crear}" method="post">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Placa</label>
+                                        <input type="text" class="form-control"
+                                               name="placa" placeholder="Ej: 789RCV">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Marca</label>
+                                        <input type="text" class="form-control"
+                                               name="marca" placeholder="Ej: Toyota">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Modelo</label>
+                                        <input type="text" class="form-control"
+                                               name="modelo" placeholder="Ej: Dyna">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Color</label>
+                                        <input type="text" class="form-control"
+                                               name="color" placeholder="Ej: Blanco">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Año</label>
+                                        <input type="number" class="form-control"
+                                               name="anio" placeholder="Ej: 2015">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Tipo de transmisión</label>
+                                        <select class="form-control" name="tipoTransmision">
+                                            <option value="Automatico">Automático</option>
+                                            <option value="Mecanico">Mecánico</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Agregar Vehículo
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Tabla vehículos -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            Cola de Vehículos (FIFO)
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>Placa</th>
+                                    <th>Marca</th>
+                                    <th>Modelo</th>
+                                    <th>Color</th>
+                                    <th>Año</th>
+                                    <th>Transmisión</th>
+                                    <th>Acciones</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="v : ${vehiculos}">
+                                    <td th:text="${v.placa}"></td>
+                                    <td th:text="${v.marca}"></td>
+                                    <td th:text="${v.modelo}"></td>
+                                    <td th:text="${v.color}"></td>
+                                    <td th:text="${v.anio}"></td>
+                                    <td th:text="${v.tipoTransmision}"></td>
+                                    <td>
+                                        <a th:href="@{/vehiculos/eliminar/{placa}(placa=${v.placa})}"
+                                           class="btn btn-danger btn-sm"
+                                           onclick="return confirm('¿Eliminar vehículo?')">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                        <button class="btn btn-warning btn-sm"
+                                                th:attr="data-placa=${v.placa},
+                                                             data-marca=${v.marca},
+                                                             data-modelo=${v.modelo},
+                                                             data-color=${v.color},
+                                                             data-anio=${v.anio},
+                                                             data-tipoTransmision=${v.tipoTransmision}"
+                                                onclick="llenarFormulario(this)">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario modificar -->
+                <div class="card shadow mb-4" id="formModificar" style="display:none;">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-warning">
+                            Modificar vehículo
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/vehiculos/modificar}" method="post">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Placa</label>
+                                        <input type="text" class="form-control"
+                                               name="placa" id="modPlaca" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Marca</label>
+                                        <input type="text" class="form-control"
+                                               name="marca" id="modMarca">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Modelo</label>
+                                        <input type="text" class="form-control"
+                                               name="modelo" id="modModelo">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Color</label>
+                                        <input type="text" class="form-control"
+                                               name="color" id="modColor">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Año</label>
+                                        <input type="number" class="form-control"
+                                               name="anio" id="modAnio">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Tipo de transmisión</label>
+                                        <select class="form-control" name="tipoTransmision"
+                                                id="modTipoTransmision">
+                                            <option value="Automatico">Automático</option>
+                                            <option value="Mecanico">Mecánico</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-warning">
+                                <i class="fas fa-save"></i> Guardar cambios
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/js/sb-admin-2.min.js"></script>
+<script>
+    function llenarFormulario(btn) {
+        document.getElementById('modPlaca').value = btn.getAttribute('data-placa');
+        document.getElementById('modMarca').value = btn.getAttribute('data-marca');
+        document.getElementById('modModelo').value = btn.getAttribute('data-modelo');
+        document.getElementById('modColor').value = btn.getAttribute('data-color');
+        document.getElementById('modAnio').value = btn.getAttribute('data-anio');
+        document.getElementById('modTipoTransmision').value = btn.getAttribute('data-tipoTransmision');
+        document.getElementById('formModificar').style.display = 'block';
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Carga CSV - Enlatados MG</title>
+    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+<div id="wrapper">
+
+    <!-- Menú lateral -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/index">
+            <div class="sidebar-brand-text mx-3">Enlatados MG</div>
+        </a>
+        <hr class="sidebar-divider my-0">
+        <li class="nav-item">
+            <a class="nav-link" href="/index">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Inicio</span>
+            </a>
+        </li>
+        <hr class="sidebar-divider">
+        <div class="sidebar-heading">Gestión</div>
+        <li class="nav-item">
+            <a class="nav-link" href="/clientes">
+                <i class="fas fa-fw fa-users"></i>
+                <span>Clientes</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/repartidores">
+                <i class="fas fa-fw fa-truck"></i>
+                <span>Repartidores</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/vehiculos">
+                <i class="fas fa-fw fa-car"></i>
+                <span>Vehículos</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/almacen">
+                <i class="fas fa-fw fa-box"></i>
+                <span>Almacén</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/pedidos">
+                <i class="fas fa-fw fa-clipboard-list"></i>
+                <span>Pedidos</span>
+            </a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="/carga">
+                <i class="fas fa-fw fa-file-csv"></i>
+                <span>Carga CSV</span>
+            </a>
+        </li>
+        <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" href="/">
+                <i class="fas fa-fw fa-sign-out-alt"></i>
+                <span>Cerrar Sesión</span>
+            </a>
+        </li>
+    </ul>
+
+    <!-- Contenido principal -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <h4 class="ml-3 font-weight-bold text-primary mb-0">
+                    <i class="fas fa-file-csv mr-2"></i>Carga Masiva de Datos
+                </h4>
+            </nav>
+
+            <div class="container-fluid">
+
+                <!-- Mensaje resultado -->
+                <div th:if="${mensaje}" class="alert alert-success">
+                    <i class="fas fa-check"></i>
+                    <span th:text="${mensaje}"></span>
+                </div>
+
+                <!-- Formato de los CSV -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-info">
+                            Formato de los archivos CSV
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Usuarios:</strong> ID;Nombre;Apellido;Contraseña</p>
+                        <p><strong>Clientes:</strong> DPI;Nombre;Apellido;Teléfono</p>
+                        <p><strong>Repartidores:</strong> DPI;Nombre;Apellido;Licencia;Teléfono</p>
+                        <p><strong>Vehículos:</strong> Placa;Marca;Modelo;Color;Año;TipoTransmision</p>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <!-- Cargar Usuarios -->
+                    <div class="col-md-6">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">
+                                    <i class="fas fa-user"></i> Cargar Usuarios
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <form th:action="@{/carga/usuarios}"
+                                      method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <input type="file" class="form-control"
+                                               name="archivo" accept=".csv">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-upload"></i> Cargar
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cargar Clientes -->
+                    <div class="col-md-6">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">
+                                    <i class="fas fa-users"></i> Cargar Clientes
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <form th:action="@{/carga/clientes}"
+                                      method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <input type="file" class="form-control"
+                                               name="archivo" accept=".csv">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-upload"></i> Cargar
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cargar Repartidores -->
+                    <div class="col-md-6">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">
+                                    <i class="fas fa-truck"></i> Cargar Repartidores
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <form th:action="@{/carga/repartidores}"
+                                      method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <input type="file" class="form-control"
+                                               name="archivo" accept=".csv">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-upload"></i> Cargar
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cargar Vehículos -->
+                    <div class="col-md-6">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">
+                                    <i class="fas fa-car"></i> Cargar Vehículos
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <form th:action="@{/carga/vehiculos}"
+                                      method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <input type="file" class="form-control"
+                                               name="archivo" accept=".csv">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-upload"></i> Cargar
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/js/sb-admin-2.min.js"></script>
+</body>
+</html>

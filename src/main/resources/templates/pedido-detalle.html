@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle Pedido - Enlatados MG</title>
+    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+<div id="wrapper">
+
+    <!-- Menú lateral -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/index">
+            <div class="sidebar-brand-text mx-3">Enlatados MG</div>
+        </a>
+        <hr class="sidebar-divider my-0">
+        <li class="nav-item">
+            <a class="nav-link" href="/index">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Inicio</span>
+            </a>
+        </li>
+        <hr class="sidebar-divider">
+        <div class="sidebar-heading">Gestión</div>
+        <li class="nav-item">
+            <a class="nav-link" href="/clientes">
+                <i class="fas fa-fw fa-users"></i>
+                <span>Clientes</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/repartidores">
+                <i class="fas fa-fw fa-truck"></i>
+                <span>Repartidores</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/vehiculos">
+                <i class="fas fa-fw fa-car"></i>
+                <span>Vehículos</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/almacen">
+                <i class="fas fa-fw fa-box"></i>
+                <span>Almacén</span>
+            </a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="/pedidos">
+                <i class="fas fa-fw fa-clipboard-list"></i>
+                <span>Pedidos</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/carga">
+                <i class="fas fa-fw fa-file-csv"></i>
+                <span>Carga CSV</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/reportes">
+                <i class="fas fa-fw fa-chart-bar"></i>
+                <span>Reportes</span>
+            </a>
+        </li>
+        <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link" href="/">
+                <i class="fas fa-fw fa-sign-out-alt"></i>
+                <span>Cerrar Sesión</span>
+            </a>
+        </li>
+    </ul>
+
+    <!-- Contenido principal -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <h4 class="ml-3 font-weight-bold text-primary mb-0">
+                    <i class="fas fa-clipboard-list mr-2"></i>Detalle del Pedido
+                </h4>
+            </nav>
+
+            <div class="container-fluid">
+
+                <!-- Info del pedido -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            Pedido #
+                            <span th:text="${pedido.numeroPedido}"></span>
+                            <span th:if="${pedido.estado == 'PENDIENTE'}"
+                                  class="badge badge-warning ml-2">PENDIENTE</span>
+                            <span th:if="${pedido.estado == 'COMPLETADO'}"
+                                  class="badge badge-success ml-2">COMPLETADO</span>
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Origen:</strong>
+                                    <span th:text="${pedido.departamentoOrigen}"></span>
+                                </p>
+                                <p><strong>Destino:</strong>
+                                    <span th:text="${pedido.departamentoDestino}"></span>
+                                </p>
+                                <p><strong>Fecha:</strong>
+                                    <span th:text="${pedido.fechaHoraInicio}"></span>
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>CUI Cliente:</strong>
+                                    <span th:text="${pedido.cuiCliente}"></span>
+                                </p>
+                                <p><strong>CUI Repartidor:</strong>
+                                    <span th:text="${pedido.cuiRepartidor}"></span>
+                                </p>
+                                <p><strong>Placa Vehículo:</strong>
+                                    <span th:text="${pedido.placaVehiculo}"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lista de cajas -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            Cajas del pedido
+                            (<span th:text="${pedido.numeroCajas}"></span> cajas)
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Correlativo</th>
+                                    <th>Fecha Ingreso</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="c : ${pedido.cajas}">
+                                    <td th:text="${c.correlativo}"></td>
+                                    <td th:text="${c.fechaIngreso}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botones -->
+                <a href="/pedidos" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Regresar
+                </a>
+                <a th:if="${pedido.estado == 'PENDIENTE'}"
+                   th:href="@{/pedidos/completar/{numero}(numero=${pedido.numeroPedido})}"
+                   class="btn btn-success"
+                   onclick="return confirm('¿Completar pedido?')">
+                    <i class="fas fa-check"></i> Completar Pedido
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/js/sb-admin-2.min.js"></script>
+</body>
+</html>

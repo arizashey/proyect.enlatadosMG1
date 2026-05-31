@@ -1,0 +1,48 @@
+/* Color principal del menú lateral - morado */
+.bg-gradient-primary {
+    background: linear-gradient(180deg, #6f42c1 10%, #4a2d8a 100%) !important;
+}
+
+/* Color de los botones primarios - morado */
+.btn-primary {
+    background-color: #6f42c1 !important;
+    border-color: #6f42c1 !important;
+}
+
+.btn-primary:hover {
+    background-color: #4a2d8a !important;
+    border-color: #4a2d8a !important;
+}
+
+/* Color de los textos primarios */
+.text-primary {
+    color: #6f42c1 !important;
+}
+
+/* Bordes izquierdos de las cards */
+.border-left-primary {
+    border-left: 4px solid #6f42c1 !important;
+}
+
+.border-left-warning {
+    border-left: 4px solid #fd7e14 !important;
+}
+
+/* Color de los títulos en cards */
+.font-weight-bold.text-primary {
+    color: #6f42c1 !important;
+}
+
+/* Sidebar links */
+.sidebar .nav-item .nav-link {
+    color: rgba(255,255,255,0.8) !important;
+}
+
+.sidebar .nav-item.active .nav-link {
+    color: #fff !important;
+}
+
+/* Badge colores */
+.badge-warning {
+    background-color: #fd7e14 !important;
+}
